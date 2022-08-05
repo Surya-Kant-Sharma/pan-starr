@@ -1,0 +1,43 @@
+@import url("https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Poppins:wght@300&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+h1 {
+  font-family: "Bungee Shade", cursive;
+  font-family: "Poppins", sans-serif;
+}
+
+.btn,
+.hero {
+  background: #FF4041;
+  background: -webkit-linear-gradient(to right, #FF4041, #FF4083, #FFD4A2);
+  background: linear-gradient(to right,#FF4041, #FF4083, #f3b46b);
+}
+
+.counter {
+  background-image: linear-gradient(to left, 
+   #FF4083, #f3b46b
+  /* #8e54e9, #4776e6 */
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.card-top {
+  background: #FF4041;
+  background: -webkit-linear-gradient(
+    to right,
+    #FF4041, #FF4083, #FFD4A2
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #FF4041, #FF4083, #FFD4A2
+    /* #8e54e9,
+    #4776e6 */
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.card {
+  border: #FF4041 1px solid;
+}
