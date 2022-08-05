@@ -62,7 +62,7 @@ const WhyKOmetCard = ({
           {/* <p className="text-xl py-7">{text?.substring(0,100)}...</p> */}
           <p className="text-x py-2">Launch Date : {launch}</p>
           <p className="text-x py-2">Score : {"01205"}</p>
-          <p className="text-x py-2">Price : {"0.0002 Matic"}</p>
+          <p className="text-x py-2">Price : {data?.collectionPrice}</p>
 
           {/* <p className="text-x pb-5">Score : {score}</p> */}
 
