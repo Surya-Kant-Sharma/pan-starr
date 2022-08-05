@@ -41,6 +41,7 @@ const NFTDescription = () => {
   const [isFollow, setIsFollow] = React.useState(false);
 
   React.useEffect(() => {
+    window.scrollTo(0, 0)
     getTwitterFollowers(data?.collectionSocialMedia?.twitterUsername);
   }, []);
 
@@ -61,10 +62,6 @@ const NFTDescription = () => {
           name
       )
       .then((res: any) => {
-        // console.log(
-        //   res.data[0].followers_count,
-        //   makeFriendly(res.data[0].followers_count)
-        // );
         setTwitterFollowers(makeFriendly(res.data[0].followers_count));
       })
       .catch((err) => {
@@ -156,7 +153,7 @@ const NFTDescription = () => {
               // backgroundColor : "red"
             }}
           >
-            <button className="btn" style={{ backgroundColor: "red", padding : 6, fontSize : '2.5vh', borderRadius : 4, fontWeight : 'bold', display : `${(user?.email) ? "block" : "none"}` }} onClick={handleFollowClick}>{(!isFollow) ? "Follow" :  "Unfollow"}</button>
+            <button className="btn rounded-full" style={{ backgroundColor: "red", padding : 6, fontSize : '2.5vh', fontWeight : 'bold', display : `${(user?.email) ? "block" : "none"}` }} onClick={handleFollowClick}>{(!isFollow) ? "Follow" :  "Unfollow"}</button>
           </div>
         </div>
 
