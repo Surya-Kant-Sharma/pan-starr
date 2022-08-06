@@ -41,3 +41,24 @@ h1 {
 .card {
   border: #FF4041 1px solid;
 }
+
+
+::-webkit-scrollbar {
+  width: 10px;
+  background-color: black;
+}
+
+
+::-webkit-scrollbar-track {
+  background: black;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    to right,
+    #FF4041, #FF4083, #FF4041
+    /* #8e54e9,
+    #4776e6 */
+  );
+  border-radius: 10px;
+}

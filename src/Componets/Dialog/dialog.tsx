@@ -86,8 +86,8 @@ const ShareDialog = ({ open, setOpen, id }: props) => {
             </div>
 
             <div className="copy_section_share">
-                <p className="text-ellipsis">{`http://www${window.location.hostname}/collection/${id}`}<span className="btn br-10 p-1 ml-2 rounded-full cursor-pointer sm text-[14px] w-1" onClick={() => {
-                navigator.clipboard.writeText(`http://www${window.location.hostname}/collection/${id}`);
+                <p className="text-ellipsis">{`http://${window.location.hostname}/collection/${id}`}<span className="btn br-10 p-1 ml-2 rounded-full cursor-pointer sm text-[14px] w-1" onClick={() => {
+                navigator.clipboard.writeText(`http://${window.location.hostname}/collection/${id}`);
               }}>Copy</span></p>
             </div>
           </div>

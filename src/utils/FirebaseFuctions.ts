@@ -3,11 +3,10 @@ import { db } from "../firebase";
 
 export const getRanking = async (id: any) => {
   try {
-    console.log("response", id);
     const docRef = doc(db, "Ranking", id);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
-      console.log("Ranking:", docSnap.data());
+      // console.log("Ranking:", docSnap.data());
       const data = docSnap.data();
       return data.ranking;
     } else {
@@ -19,10 +18,7 @@ export const getRanking = async (id: any) => {
 };
 
 export const handleRanking = async (rankingId: any, ranking: number) => {
-  // first add followers
-  console.log("response", rankingId);
   await setDoc(doc(db, "Ranking", rankingId), { ranking });
-  // setprofile followers
 };
 
 export const removeRanking = async (user: any, collectionId: any) => {
@@ -45,11 +41,10 @@ export const userRankedOrNot = async (
   collectionId: any
 ) => {
   try {
-    console.log("response", id);
     const docRef = doc(db, "Users", user?.email, "Ranking", collectionId);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
-      console.log("Ranking:", docSnap.data());
+      // console.log("Ranking:", docSnap.data());
       const data = docSnap.data();
       return data.ranked;
     } else {
@@ -64,12 +59,9 @@ export const userRankedOrNot = async (
 
 export const getFollowers = async (id: any) => {
   try {
-    const id2 = id.toString();
-    console.log("followers", id2);
     const docRef = doc(db, "Followers", id);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
-      console.log("followers:", docSnap.data());
       const data = docSnap.data();
       return data.followers;
     } else {
@@ -84,7 +76,6 @@ export const handleFollow = async (
   FollowersId: any,
   followers: number
 ) => {
-  // console.log("response", rankingId);
   await setDoc(doc(db, "Followers", FollowersId), { followers });
 };
 
@@ -94,11 +85,9 @@ export const userFollowOrNot = async (
   collectionId: any
 ) => {
   try {
-    console.log("response", id);
     const docRef = doc(db, "Users", user?.email, "Followers", collectionId);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
-      console.log("Ranking:", docSnap.data());
       const data = docSnap.data();
       return data.follow;
     } else {
@@ -130,7 +119,6 @@ export const getCollection = async (id: any) => {
     const docRef = doc(db, "Collections", id);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
-      console.log("collections:", docSnap.data());
       const data = docSnap.data();
       return data;
     } else {

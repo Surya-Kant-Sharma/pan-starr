@@ -21,9 +21,11 @@ import {
   UserAuth,
 } from "../Componets/GooogleProvider/GoogleAuthProvider";
 import ShareNFTDescription from "./shareNftPage";
+import DocSection from "../Componets/Doc/Doc";
 
 const App = () => {
   const { user }: any = UserAuth();
+
   React.useEffect(() => {
     CheckUserDetails(user);
     getData();
@@ -131,7 +133,7 @@ const Home = () => {
               <Routes>
                 <Route path="/" element={<App />} />
                 <Route path="about" element={<Aboutus />} />
-                <Route path="docs" element={<Aboutus />} />
+                <Route path="docs" element={<DocSection />} />
                 <Route path="careers" element={<Careers />} />
                 <Route path="nft" element={<NFTDescription />} />
                 <Route path="collection/:id" element={<ShareNFTDescription />} />

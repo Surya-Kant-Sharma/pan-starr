@@ -33,7 +33,7 @@ const WhyKOmetCard = ({
 
   React.useEffect(() => {
     if (FollowersId) {
-      getFollowers(FollowersId).then(res => setFollowers(res));
+      getFollowers(FollowersId).then((res) => setFollowers(res));
     }
   }, [FollowersId]);
 
@@ -49,7 +49,10 @@ const WhyKOmetCard = ({
 
   return (
     <>
-      <div className="root_why_komet">
+      <div
+        className="page first-page"
+      >
+        {/* <p>{data?.collectionName}</p> */}
         <div className="image_section_komet">
           <img
             className="object-cover"
@@ -59,17 +62,14 @@ const WhyKOmetCard = ({
         </div>
         <div className="text_section_komet">
           <h1 className="text-5xl font-bold counter pt-5">{title}</h1>
-          {/* <p className="text-xl py-7">{text?.substring(0,100)}...</p> */}
           <p className="text-x py-2">Launch Date : {launch}</p>
           <p className="text-x py-2">Score : {"01205"}</p>
           <p className="text-x py-2">Price : {data?.collectionPrice}</p>
 
-          {/* <p className="text-x pb-5">Score : {score}</p> */}
 
           <div className="btnSection_komet">
             <button
               className="more_btn_komet border-1 btn"
-              // onClick={() => handleFollow(user, FollowersId, collectionId)}
             >
               Followers {makeFriendly(followers)}
             </button>

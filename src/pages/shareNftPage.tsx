@@ -27,26 +27,27 @@ import {
 import { UserAuth } from "../Componets/GooogleProvider/GoogleAuthProvider";
 import ShareDialog from "../Componets/Dialog/dialog";
 
-
 const dummyData = {
-    CollectionImage: "https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/advisor/in/wp-content/uploads/2022/03/monkey-g412399084_1280.jpg",
-    CollectionPrice: "0.002",
-    collectionDescription: "NFT stands for non-fungible token. It’s generally built using the same kind of programming as cryptocurrency, like Bitcoin or Ethereum, but that’s where the similarity ends.  Physical money and cryptocurrencies are “fungible,” meaning they can be traded or exchanged for one another. They’re also equal in value—one dollar is always worth another dollar; one Bitcoin is always equal to another Bitcoin. Crypto’s fungibility makes it a trusted means of conducting transactions on the blockchain.  NFTs are different. Each has a digital signature that makes it impossible for NFTs to be exchanged for or equal to one another (hence, non-fungible). One NBA Top Shot clip, for example, is not equal to EVERYDAYS simply because they’re both NFTs. (One NBA Top Shot clip isn’t even necessarily equal to another NBA Top Shot clip, for that matter.)",
-    collectionFollowers: '"yY1bs2rGZEQx1esl1o1Y"',
-    collectionLaunchDate: "20-aug-2022",
-    collectionName: "Dummy Collection",
-    collectionRanking: '"IiUaAqoavJmKtKULPPks"',
-    collectionSocialMedia: { twitter: '""',twitterUsername : "", discord: '""' },
-  }
+  CollectionImage:
+    "https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/advisor/in/wp-content/uploads/2022/03/monkey-g412399084_1280.jpg",
+  CollectionPrice: "0.002",
+  collectionDescription:
+    "NFT stands for non-fungible token. It’s generally built using the same kind of programming as cryptocurrency, like Bitcoin or Ethereum, but that’s where the similarity ends.  Physical money and cryptocurrencies are “fungible,” meaning they can be traded or exchanged for one another. They’re also equal in value—one dollar is always worth another dollar; one Bitcoin is always equal to another Bitcoin. Crypto’s fungibility makes it a trusted means of conducting transactions on the blockchain.  NFTs are different. Each has a digital signature that makes it impossible for NFTs to be exchanged for or equal to one another (hence, non-fungible). One NBA Top Shot clip, for example, is not equal to EVERYDAYS simply because they’re both NFTs. (One NBA Top Shot clip isn’t even necessarily equal to another NBA Top Shot clip, for that matter.)",
+  collectionFollowers: '"yY1bs2rGZEQx1esl1o1Y"',
+  collectionLaunchDate: "20-aug-2022",
+  collectionName: "Dummy Collection",
+  collectionRanking: '"IiUaAqoavJmKtKULPPks"',
+  collectionSocialMedia: { twitter: '""', twitterUsername: "", discord: '""' },
+};
 
 const ShareNFTDescription = () => {
   const navigate = useNavigate();
   const [twitterFollowers, setTwitterFollowers] = React.useState("0");
   const { state } = useLocation();
   const { user }: any = UserAuth();
-  const {id} = useParams();
+  const { id } = useParams();
 
-  const [data, setData] : any = React.useState(dummyData);
+  const [data, setData]: any = React.useState(dummyData);
   const [rank, setRank] = React.useState(0);
   const [isRank, setIsRank] = React.useState(false);
 
@@ -55,13 +56,15 @@ const ShareNFTDescription = () => {
   const [isFollow, setIsFollow] = React.useState(false);
 
   React.useEffect(() => {
-    console.log("id", id)
-    getCollection(id).then(res => setData(res)).catch(err => console.log(err));
+    console.log("id", id);
+    getCollection(id)
+      .then((res) => setData(res))
+      .catch((err) => console.log(err));
   }, []);
 
   React.useEffect(() => {
     getTwitterFollowers(data?.collectionSocialMedia?.twitterUsername);
-  }, [data])
+  }, [data]);
 
   function intlFormat(num: number) {
     return new Intl.NumberFormat().format(Math.round(num * 10) / 10);
@@ -74,7 +77,7 @@ const ShareNFTDescription = () => {
   }
 
   const getTwitterFollowers = (name: string) => {
-    console.log("twitterfollowers", name)
+    console.log("twitterfollowers", name);
     axios
       .get(
         "https://cdn.syndication.twimg.com/widgets/followbutton/info.json?screen_names=" +
@@ -92,16 +95,16 @@ const ShareNFTDescription = () => {
       });
   };
 
-  
-
   React.useEffect(() => {
     if (data) {
       getRanking(data?.collectionRanking).then((res) => setRank(res));
-      getFollowers(data.collectionFollowers).then(res => setFollowers(res))
+      getFollowers(data.collectionFollowers).then((res) => setFollowers(res));
       userRankedOrNot(data?.collectionRanking, user, id).then((res) =>
         setIsRank(res)
       );
-      userFollowOrNot(data.collectionFollowers, user, id).then(res => setIsFollow(res))
+      userFollowOrNot(data.collectionFollowers, user, id).then((res) =>
+        setIsFollow(res)
+      );
     }
   }, [data]);
 
@@ -128,26 +131,26 @@ const ShareNFTDescription = () => {
   };
 
   const handleFollowClick = () => {
-      if(!isFollow) {
-        Increasefollow();
-      } else {
-        decrementFollow();
-      }
-  }
+    if (!isFollow) {
+      Increasefollow();
+    } else {
+      decrementFollow();
+    }
+  };
 
   const Increasefollow = () => {
     handleFollow(data?.collectionFollowers, follower + 1);
     Follow(user, id);
     setFollowers(follower + 1);
     setIsFollow(true);
-  }
+  };
 
   const decrementFollow = () => {
-    handleFollow(data?.collectionFollowers, follower - 1)
-    unFollow(user,id);
+    handleFollow(data?.collectionFollowers, follower - 1);
+    unFollow(user, id);
     setFollowers(follower - 1);
-    setIsFollow(false)
-  }
+    setIsFollow(false);
+  };
 
   return (
     <div className="parent_root">
@@ -178,7 +181,22 @@ const ShareNFTDescription = () => {
               // backgroundColor : "red"
             }}
           >
-            <button className="btn" style={{ backgroundColor: "red", padding : 6, fontSize : '2.5vh', borderRadius : 4, fontWeight : 'bold', display : `${(user?.email) ? "block" : "none"}` }} onClick={handleFollowClick}>{(!isFollow) ? "Follow" :  "Unfollow"}</button>
+            <button
+              className="btn"
+              style={{
+                backgroundColor: "red",
+                padding: 6,
+                paddingLeft : 9,
+                paddingRight : 9,
+                borderRadius : '10px',
+                fontSize: "2.5vh",
+                fontWeight: "normal",
+                display: `${user?.email ? "block" : "none"}`,
+              }}
+              onClick={handleFollowClick}
+            >
+              {!isFollow ? "Follow" : "Unfollow"}
+            </button>
           </div>
         </div>
 
@@ -206,23 +224,42 @@ const ShareNFTDescription = () => {
                     className="sentiment_icon"
                     onClick={() => {}}
                   /> */}
-                  <p style={{width : '100%', textAlign : 'center'}}>{makeFriendly(follower)}</p>
-                  <p style={{width : '100%', textAlign : 'center'}}>Followers</p>
+                  <p style={{ width: "100%", textAlign: "center" }}>
+                    {makeFriendly(follower)}
+                  </p>
+                  <p style={{ width: "100%", textAlign: "center" }}>
+                    Followers
+                  </p>
                 </div>
               </div>
               <div className="SocialMedia_button">
                 <div
                   className="SocialMedia"
-                  onClick={() =>
-                    window.open((data?.collectionSocialMedia?.twitter).toString(), '_blank', 'noopener,noreferrer')
-                  }
                 >
-                  <div className="icon_section">
+                  <div
+                    className="icon_section"
+                    onClick={() =>
+                      window.open(
+                        (data?.collectionSocialMedia?.twitterUrl).toString(),
+                        "_blank",
+                        "noopener,noreferrer"
+                      )
+                    }
+                  >
                     {/* <img src="" alt="logo" /> */}
                     <BsTwitter className="icon" />
                     <p>{twitterFollowers}</p>
                   </div>
-                  <div className="icon_section">
+                  <div
+                    className="icon_section"
+                    onClick={() =>
+                      window.open(
+                        (data?.collectionSocialMedia?.discordUrl).toString(),
+                        "_blank",
+                        "noopener,noreferrer"
+                      )
+                    }
+                  >
                     {/* <img src="" alt="logo" /> */}
                     <SiDiscord className="icon" />
                     <p>Discord</p>
@@ -245,7 +282,12 @@ const ShareNFTDescription = () => {
           </div>
 
           <h4 style={{ color: "black", fontWeight: "bold" }}>Token Price</h4>
-          <h4 className="counter" style={{ color: "white", fontWeight: "bold" }}>Rating {rank}</h4>
+          <h4
+            className="counter"
+            style={{ color: "white", fontWeight: "bold" }}
+          >
+            Rating {rank}
+          </h4>
 
           <div
             style={{
@@ -266,13 +308,13 @@ const ShareNFTDescription = () => {
                   src="https://ffnews.com/wp-content/uploads/2021/07/q4itcBEb_400x400-300x300.jpg"
                   alt=""
                 />
-                <p>{data?.CollectionPrice} Matic ($0.65)</p>
+                <p>{data?.collectionPrice}</p>
               </div>
 
               <div className="rating_section">
-                <div style={{display : `${(user?.email) ? "block" : "none"}`}}>
+                <div style={{ display: `${user?.email ? "block" : "none"}` }}>
                   <p className="ml-3 text-sm font-medium text-white-900 dark:text-gray-300 mr-1 mb-2">
-                    {(!isRank) ? "Rank me" : "You Already Ranked"}
+                    {!isRank ? "Rank me" : "You Already Ranked"}
                   </p>
                   <label className="inline-flex relative items-center mb-4 cursor-pointer">
                     <input
@@ -336,15 +378,10 @@ const ShareNFTDescription = () => {
             </span> */}
 
             {/* share dialog */}
-
           </div>
         </div>
       </div>
-      <ShareDialog 
-       open={open}
-       setOpen={setOpen}
-       id={""+id?.toString()}
-      />
+      <ShareDialog open={open} setOpen={setOpen} id={"" + id?.toString()} />
     </div>
   );
 };

@@ -8,11 +8,9 @@ import {
   doc,
 } from "firebase/firestore";
 import toast from "react-hot-toast";
-import { db } from "../firebase";
-
 import { v4 as uuidv4 } from "uuid";
+import { db } from "../Componets/firebase";
 import { useAppContext } from "../_context";
-
 const queryParams = new URLSearchParams(window.location.search);
 const refralurl = queryParams.get("refID");
 

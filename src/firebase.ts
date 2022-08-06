@@ -1,8 +1,17 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
-const firebaseConfig = {
+// console.log("env", 
+// process.env.REACT_APP_APIKEY,
+// process.env.REACT_APP_AUTH_DOMAIN,
+// process.env.REACT_APP_PROJECT_ID,
+// process.env.REACT_APP_STORAGE_BUCKET,
+// process.env.REACT_APP_MESSAGING_SENDER_ID,
+// process.env.REACT_APP_APP_ID,
+// process.env.REACT_APP_MEASUREMENT_ID
+// )
 
+const firebaseConfig = {
   apiKey: "AIzaSyCytEB2AqwXYEqhZiR4KoGYHBJ5eNqmoho",
 
   authDomain: "panstarr-57a2d.firebaseapp.com",

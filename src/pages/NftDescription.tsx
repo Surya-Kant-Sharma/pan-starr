@@ -41,7 +41,7 @@ const NFTDescription = () => {
   const [isFollow, setIsFollow] = React.useState(false);
 
   React.useEffect(() => {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
     getTwitterFollowers(data?.collectionSocialMedia?.twitterUsername);
   }, []);
 
@@ -56,6 +56,7 @@ const NFTDescription = () => {
   }
 
   const getTwitterFollowers = (name: string) => {
+    // console.log("getTwitter", name)
     axios
       .get(
         "https://cdn.syndication.twimg.com/widgets/followbutton/info.json?screen_names=" +
@@ -72,11 +73,13 @@ const NFTDescription = () => {
   React.useEffect(() => {
     if (FollowersId) {
       getRanking(data?.collectionRanking).then((res) => setRank(res));
-      getFollowers(FollowersId).then(res => setFollowers(res))
+      getFollowers(FollowersId).then((res) => setFollowers(res));
       userRankedOrNot(data?.collectionRanking, user, collectionId).then((res) =>
         setIsRank(res)
       );
-      userFollowOrNot(FollowersId, user, collectionId).then(res => setIsFollow(res))
+      userFollowOrNot(FollowersId, user, collectionId).then((res) =>
+        setIsFollow(res)
+      );
     }
   }, []);
 
@@ -103,26 +106,26 @@ const NFTDescription = () => {
   };
 
   const handleFollowClick = () => {
-      if(!isFollow) {
-        Increasefollow();
-      } else {
-        decrementFollow();
-      }
-  }
+    if (!isFollow) {
+      Increasefollow();
+    } else {
+      decrementFollow();
+    }
+  };
 
   const Increasefollow = () => {
     handleFollow(data?.collectionFollowers, follower + 1);
     Follow(user, collectionId);
     setFollowers(follower + 1);
     setIsFollow(true);
-  }
+  };
 
   const decrementFollow = () => {
-    handleFollow(data?.collectionFollowers, follower - 1)
-    unFollow(user,collectionId);
+    handleFollow(data?.collectionFollowers, follower - 1);
+    unFollow(user, collectionId);
     setFollowers(follower - 1);
-    setIsFollow(false)
-  }
+    setIsFollow(false);
+  };
 
   return (
     <div className="parent_root">
@@ -153,7 +156,22 @@ const NFTDescription = () => {
               // backgroundColor : "red"
             }}
           >
-            <button className="btn rounded-full" style={{ backgroundColor: "red", padding : 6, fontSize : '2.5vh', fontWeight : 'bold', display : `${(user?.email) ? "block" : "none"}` }} onClick={handleFollowClick}>{(!isFollow) ? "Follow" :  "Unfollow"}</button>
+            <button
+              className="btn"
+              style={{
+                backgroundColor: "red",
+                padding: 6,
+                paddingLeft : 9,
+                paddingRight : 9,
+                borderRadius : '10px',
+                fontSize: "2.5vh",
+                fontWeight: "normal",
+                display: `${user?.email ? "block" : "none"}`,
+              }}
+              onClick={handleFollowClick}
+            >
+              {!isFollow ? "Follow" : "unfollow"}
+            </button>
           </div>
         </div>
 
@@ -181,23 +199,35 @@ const NFTDescription = () => {
                     className="sentiment_icon"
                     onClick={() => {}}
                   /> */}
-                  <p style={{width : '100%', textAlign : 'center'}}>{makeFriendly(follower)}</p>
-                  <p style={{width : '100%', textAlign : 'center'}}>Followers</p>
+                  <p style={{ width: "100%", textAlign: "center" }}>
+                    {makeFriendly(follower)}
+                  </p>
+                  <p style={{ width: "100%", textAlign: "center" }}>
+                    Followers
+                  </p>
                 </div>
               </div>
               <div className="SocialMedia_button">
-                <div
-                  className="SocialMedia"
-                  onClick={() =>
-                    window.open((data?.collectionSocialMedia?.twitter).toString(), '_blank', 'noopener,noreferrer')
-                  }
-                >
-                  <div className="icon_section">
+                <div className="SocialMedia">
+                  <div
+                    className="icon_section"
+                    onClick={() =>
+                      window.open(
+                        (data?.collectionSocialMedia?.twitterUrl).toString(),
+                        "_blank",
+                        "noopener,noreferrer"
+                      )
+                    }
+                  >
                     {/* <img src="" alt="logo" /> */}
                     <BsTwitter className="icon" />
                     <p>{twitterFollowers}</p>
                   </div>
-                  <div className="icon_section">
+                  <div className="icon_section"
+                     onClick={() =>
+                      window.open((data?.collectionSocialMedia?.discordUrl).toString(), '_blank', 'noopener,noreferrer')
+                    }
+                  >
                     {/* <img src="" alt="logo" /> */}
                     <SiDiscord className="icon" />
                     <p>Discord</p>
@@ -220,7 +250,12 @@ const NFTDescription = () => {
           </div>
 
           <h4 style={{ color: "black", fontWeight: "bold" }}>Token Price</h4>
-          <h4 className="counter" style={{ color: "white", fontWeight: "bold" }}>Rating {rank}</h4>
+          <h4
+            className="counter"
+            style={{ color: "white", fontWeight: "bold" }}
+          >
+            Rating {rank}
+          </h4>
 
           <div
             style={{
@@ -241,13 +276,13 @@ const NFTDescription = () => {
                   src="https://ffnews.com/wp-content/uploads/2021/07/q4itcBEb_400x400-300x300.jpg"
                   alt=""
                 />
-                <p>{data?.CollectionPrice} Matic ($0.65)</p>
+                <p>{data?.collectionPrice}</p>
               </div>
 
               <div className="rating_section">
-                <div style={{display : `${(user?.email) ? "block" : "none"}`}}>
+                <div style={{ display: `${user?.email ? "block" : "none"}` }}>
                   <p className="ml-3 text-sm font-medium text-white-900 dark:text-gray-300 mr-1 mb-2">
-                    {(!isRank) ? "Rank me" : "You Already Ranked"}
+                    {!isRank ? "Rank me" : "You Already Ranked"}
                   </p>
                   <label className="inline-flex relative items-center mb-4 cursor-pointer">
                     <input
@@ -258,7 +293,7 @@ const NFTDescription = () => {
                       id="default-toggle"
                       className="sr-only peer"
                     />
-                    <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-greenyellow-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked: btn"></div>
+                    <div className={`w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-greenyellow-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked : ${(isRank) ? 'btn' : ""}`}></div>
                   </label>
                 </div>
               </div>
@@ -311,15 +346,10 @@ const NFTDescription = () => {
             </span> */}
 
             {/* share dialog */}
-
           </div>
         </div>
       </div>
-      <ShareDialog 
-       open={open}
-       setOpen={setOpen}
-       id={collectionId}
-      />
+      <ShareDialog open={open} setOpen={setOpen} id={collectionId} />
     </div>
   );
 };
